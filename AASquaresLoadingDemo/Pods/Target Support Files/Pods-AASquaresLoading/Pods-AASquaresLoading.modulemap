@@ -1,0 +1,6 @@
+framework module AASquaresLoading {
+  umbrella header "Pods-AASquaresLoading-umbrella.h"
+
+  export *
+  module * { export * }
+}
