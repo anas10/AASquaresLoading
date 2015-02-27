@@ -11,21 +11,22 @@ import UIKit
 public class AASquaresLoading : UIView {
     public var view : UIView = UIView()
     public var size : Float = 0
-    public var squareSize: Float?
-    public var gapSize: Float?
-    public var moveTime: Float?
-    public var squareStartX: Float?
-    public var squareStartY: Float?
-    public var squareStartOpacity: Float?
-    public var squareEndX: Float?
-    public var squareEndY: Float?
-    public var squareEndOpacity: Float?
-    public var squareOffsetX: [Float] = [Float](count: 9, repeatedValue: 0)
-    public var squareOffsetY: [Float] = [Float](count: 9, repeatedValue: 0)
-    public var squareOpacity: [Float] = [Float](count: 9, repeatedValue: 0)
-    public var squares : [CALayer] = [CALayer]()
     public var color : UIColor = UIColor.blackColor()
     public var parentView : UIView?
+
+    private var squareSize: Float?
+    private var gapSize: Float?
+    private var moveTime: Float?
+    private var squareStartX: Float?
+    private var squareStartY: Float?
+    private var squareStartOpacity: Float?
+    private var squareEndX: Float?
+    private var squareEndY: Float?
+    private var squareEndOpacity: Float?
+    private var squareOffsetX: [Float] = [Float](count: 9, repeatedValue: 0)
+    private var squareOffsetY: [Float] = [Float](count: 9, repeatedValue: 0)
+    private var squareOpacity: [Float] = [Float](count: 9, repeatedValue: 0)
+    private var squares : [CALayer] = [CALayer]()
 
     public init(target: UIView) {
         let size : Float = 40
@@ -42,7 +43,7 @@ public class AASquaresLoading : UIView {
         setup(target, size: size)
     }
     
-    public func setup(target: UIView, size: Float) {
+    private func setup(target: UIView, size: Float) {
         self.size = size
         self.view.frame = CGRectMake(frame.width / 2 - CGFloat(size) / 2,
             frame.height / 2 - CGFloat(size) / 2, CGFloat(size), CGFloat(size))
@@ -104,7 +105,7 @@ public class AASquaresLoading : UIView {
         }
     }
     
-    public func initialize() {
+    private func initialize() {
         let gap : Float = 0.04
         gapSize = size * gap
         squareSize = size * (1.0 - 2 * gap) / 3
@@ -143,7 +144,7 @@ public class AASquaresLoading : UIView {
         }
     }
     
-    public func addSquareAnimation(position: Int) {
+    private func addSquareAnimation(position: Int) {
         var square : CALayer = CALayer()
         if position == -1 {
             square.frame = CGRectMake(CGFloat(squareStartX!), CGFloat(squareStartY!),
