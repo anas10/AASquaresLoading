@@ -9,23 +9,23 @@
 import UIKit
 
 public class AASquaresLoading : UIView {
-    var view : UIView = UIView()
-    var size : Float = 0
-    var squareSize: Float?
-    var gapSize: Float?
-    var moveTime: Float?
-    var squareStartX: Float?
-    var squareStartY: Float?
-    var squareStartOpacity: Float?
-    var squareEndX: Float?
-    var squareEndY: Float?
-    var squareEndOpacity: Float?
-    var squareOffsetX: [Float] = [Float](count: 9, repeatedValue: 0)
-    var squareOffsetY: [Float] = [Float](count: 9, repeatedValue: 0)
-    var squareOpacity: [Float] = [Float](count: 9, repeatedValue: 0)
-    var squares : [CALayer] = [CALayer]()
-    var color : UIColor = UIColor.blackColor()
-    var parentView : UIView?
+    public var view : UIView = UIView()
+    public var size : Float = 0
+    public var squareSize: Float?
+    public var gapSize: Float?
+    public var moveTime: Float?
+    public var squareStartX: Float?
+    public var squareStartY: Float?
+    public var squareStartOpacity: Float?
+    public var squareEndX: Float?
+    public var squareEndY: Float?
+    public var squareEndOpacity: Float?
+    public var squareOffsetX: [Float] = [Float](count: 9, repeatedValue: 0)
+    public var squareOffsetY: [Float] = [Float](count: 9, repeatedValue: 0)
+    public var squareOpacity: [Float] = [Float](count: 9, repeatedValue: 0)
+    public var squares : [CALayer] = [CALayer]()
+    public var color : UIColor = UIColor.blackColor()
+    public var parentView : UIView?
 
     public init(target: UIView) {
         let size : Float = 40
@@ -35,14 +35,14 @@ public class AASquaresLoading : UIView {
         setup(target, size: 40)
     }
     
-    init(target: UIView, size: Float) {
+    public init(target: UIView, size: Float) {
         let frame = target.frame
         super.init(frame: frame)
         
         setup(target, size: size)
     }
     
-    func setup(target: UIView, size: Float) {
+    public func setup(target: UIView, size: Float) {
         self.size = size
         self.view.frame = CGRectMake(frame.width / 2 - CGFloat(size) / 2,
             frame.height / 2 - CGFloat(size) / 2, CGFloat(size), CGFloat(size))
@@ -74,14 +74,14 @@ public class AASquaresLoading : UIView {
         self.initialize()
     }
     
-    func setColor(color: UIColor) {
+    public func setColor(color: UIColor) {
         self.color = color
         for layer in squares {
             layer.backgroundColor = color.CGColor
         }
     }
     
-    func start() {
+    public func start() {
         if (parentView != nil) {
             self.layer.opacity = 0
             self.parentView!.addSubview(self)
@@ -92,7 +92,7 @@ public class AASquaresLoading : UIView {
         }
     }
     
-    func stop() {
+    public func stop() {
         if (parentView != nil) {
             self.layer.opacity = 1
             UIView.animateWithDuration(0.6, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut,
@@ -104,7 +104,7 @@ public class AASquaresLoading : UIView {
         }
     }
     
-    func initialize() {
+    public func initialize() {
         let gap : Float = 0.04
         gapSize = size * gap
         squareSize = size * (1.0 - 2 * gap) / 3
@@ -136,18 +136,14 @@ public class AASquaresLoading : UIView {
         squareEndY = squareOffsetY[8] + 2 * squareSize! + 2 * gapSize!
         squareEndOpacity = 0.0
         
-        if floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1 {
-            color = UIColor.blackColor()
-        } else {
-            color = self.tintColor
-        }
+        color = self.tintColor
         
         for var i = -1; i < 9; i++ {
             self.addSquareAnimation(i)
         }
     }
     
-    func addSquareAnimation(position: Int) {
+    public func addSquareAnimation(position: Int) {
         var square : CALayer = CALayer()
         if position == -1 {
             square.frame = CGRectMake(CGFloat(squareStartX!), CGFloat(squareStartY!),
