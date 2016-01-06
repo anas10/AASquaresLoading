@@ -13,7 +13,7 @@
 		A8B270331AA078A2000C6455 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8B270321AA078A2000C6455 /* Images.xcassets */; };
 		A8B270361AA078A2000C6455 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8B270341AA078A2000C6455 /* LaunchScreen.xib */; };
 		A8B270421AA078A2000C6455 /* AASquaresLoadingDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B270411AA078A2000C6455 /* AASquaresLoadingDemoTests.swift */; };
-		E56297C42854A82044532638 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C684252C2AA4554B46A8BC /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E56297C42854A82044532638 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C684252C2AA4554B46A8BC /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +183,8 @@
 		A8B2701E1AA078A2000C6455 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0720;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Anas AIT ALI";
 				TargetAttributes = {

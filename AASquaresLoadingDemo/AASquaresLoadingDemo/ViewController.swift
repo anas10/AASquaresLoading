@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        var square = AASquaresLoading(target: self.view)
+        let square = AASquaresLoading(target: self.view)
         square.backgroundColor = UIColor.yellowColor().colorWithAlphaComponent(0.1)
         square.start()
     }
