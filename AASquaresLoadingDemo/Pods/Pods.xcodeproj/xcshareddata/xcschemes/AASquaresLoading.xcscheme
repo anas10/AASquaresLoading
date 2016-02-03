@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '16D2EE11BD0B0ED21B5AB30E'
+               BlueprintIdentifier = '955A16E95F5DF6BFD2474EC3'
                BlueprintName = 'AASquaresLoading'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'AASquaresLoading.framework'>

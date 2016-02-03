@@ -36,11 +36,10 @@ class ViewController: UIViewController {
     bottomRightSquare.color = UIColor.yellowColor()
     bottomRightSquare.start(4.0)
     
-    bottomCenterSquare = AASquaresLoading(target: self.bottomCenter)
-    bottomCenterSquare.backgroundColor = UIColor.redColor()
-    bottomCenterSquare.color = UIColor.whiteColor()
-    bottomCenterSquare.start()
-    bottomCenterSquare.stop(8.0)
+    self.bottomCenter.squareLoading.start(0.0)
+    self.bottomCenter.squareLoading.backgroundColor = UIColor.redColor()
+    self.bottomCenter.squareLoading.color = UIColor.whiteColor()
+    self.bottomCenter.squareLoading.stop(8.0)
     
     bottomLeftSquare = AASquaresLoading(target: self.bottomLeft)
     bottomLeftSquare.color = UIColor.blackColor()
@@ -53,7 +52,6 @@ class ViewController: UIViewController {
     
     self.topRightSquare.setNeedsLayout()
     self.bottomRightSquare.setNeedsLayout()
-    self.bottomCenterSquare.setNeedsLayout()
     self.bottomLeftSquare.setNeedsLayout()
   }
   

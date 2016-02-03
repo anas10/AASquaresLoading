@@ -8,7 +8,52 @@
 
 import UIKit
 
-public class AASquaresLoading : UIView {
+//MARK: AASquareLoadingInterface
+/**
+ Interface for the AASquareLoading class
+*/
+public protocol AASquareLoadingInterface: class {
+  var color : UIColor { get set }
+  var backgroundColor : UIColor? { get set }
+  func start(delay : NSTimeInterval)
+  func stop(delay : NSTimeInterval)
+}
+
+private var AASLAssociationKey: UInt8 = 0
+
+//MARK: UIView extension
+public extension UIView {
+
+  /**
+   Variable to allow access to the class AASquareLoading
+   */
+  public var squareLoading: AASquareLoadingInterface {
+    get {
+      if let value = objc_getAssociatedObject(self, &AASLAssociationKey) as? AASquareLoadingInterface {
+        return value
+      } else {
+        let squareLoading = AASquaresLoading(target: self)
+        
+        objc_setAssociatedObject(self, &AASLAssociationKey, squareLoading,
+          objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+        
+        return squareLoading
+      }
+    }
+    
+    set {
+      objc_setAssociatedObject(self, &AASLAssociationKey, newValue,
+        objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+    }
+  }
+}
+
+//MARK: AASquareLoading class
+
+/**
+ Main class AASquareLoading
+*/
+public class AASquaresLoading : UIView, AASquareLoadingInterface {
   public var view : UIView = UIView()
   private(set) public var size : Float = 0
   public var color : UIColor = UIColor.blackColor() {
@@ -84,6 +129,11 @@ public class AASquaresLoading : UIView {
       frame.height / 2 - CGFloat(size) / 2, CGFloat(size), CGFloat(size))
   }
   
+  /**
+   Function to start the loading animation
+   
+   - Parameter delay : The delay before the loading start
+   */
   public func start(delay : NSTimeInterval = 0.0) {
     if (parentView != nil) {
       self.layer.opacity = 0
@@ -95,6 +145,11 @@ public class AASquaresLoading : UIView {
     }
   }
 
+  /**
+   Function to start the loading animation
+   
+   - Parameter delay : The delay before the loading start
+   */
   public func stop(delay : NSTimeInterval = 0.0) {
     if (parentView != nil) {
       self.layer.opacity = 1

@@ -1,5 +1,5 @@
 PODS:
-  - AASquaresLoading (0.1)
+  - AASquaresLoading (0.2)
 
 DEPENDENCIES:
   - AASquaresLoading (from `../`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AASquaresLoading: ce17f78b93cb0dc6982476043e634e60687ca949
+  AASquaresLoading: b9d4b3235ccfc8d597cd210d57602ea671e72c5f
 
 COCOAPODS: 0.39.0
