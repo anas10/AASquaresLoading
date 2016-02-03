@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AASquaresLoading: bc01f47051bdde5bf9acedba8ba688946bab9e07
+  AASquaresLoading: ca73991f00c9e509115065cab1e9b495a03e004c
 
 COCOAPODS: 0.39.0
