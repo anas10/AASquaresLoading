@@ -10,21 +10,61 @@ import UIKit
 import AASquaresLoading
 
 class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        let square = AASquaresLoading(target: self.view)
-        square.backgroundColor = UIColor.yellowColor().colorWithAlphaComponent(0.1)
-        square.start()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
+  
+  @IBOutlet weak var topLeft: AASquaresLoading!
+  @IBOutlet weak var topRight: UIView!
+  @IBOutlet weak var bottomRight: UIView!
+  @IBOutlet weak var bottomCenter: UIView!
+  @IBOutlet weak var bottomLeft: UIView!
+  
+  var topRightSquare : AASquaresLoading!
+  var bottomRightSquare : AASquaresLoading!
+  var bottomCenterSquare : AASquaresLoading!
+  var bottomLeftSquare : AASquaresLoading!
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    // Do any additional setup after loading the view, typically from a nib.
+    
+    topRightSquare = AASquaresLoading(target: self.topRight, size: 40)
+    topRightSquare.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
+    topRightSquare.color = UIColor.whiteColor()
+    topRightSquare.start()
+    
+    bottomRightSquare = AASquaresLoading(target: self.bottomRight)
+    bottomRightSquare.backgroundColor = nil
+    bottomRightSquare.color = UIColor.yellowColor()
+    bottomRightSquare.start(4.0)
+    
+    bottomCenterSquare = AASquaresLoading(target: self.bottomCenter)
+    bottomCenterSquare.backgroundColor = UIColor.redColor()
+    bottomCenterSquare.color = UIColor.whiteColor()
+    bottomCenterSquare.start()
+    bottomCenterSquare.stop(8.0)
+    
+    bottomLeftSquare = AASquaresLoading(target: self.bottomLeft)
+    bottomLeftSquare.color = UIColor.blackColor()
+    bottomLeftSquare.backgroundColor = UIColor.clearColor()
+    bottomLeftSquare.start()
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    
+    self.topRightSquare.setNeedsLayout()
+    self.bottomRightSquare.setNeedsLayout()
+    self.bottomCenterSquare.setNeedsLayout()
+    self.bottomLeftSquare.setNeedsLayout()
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  override func prefersStatusBarHidden() -> Bool {
+    return true
+  }
+  
 }
 
