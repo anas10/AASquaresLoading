@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.author             = { "Anas AIT ALI" => "aitali.anas@gmail.com" }
   s.social_media_url   = "http://twitter.com/anasaitali"
 
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "8.0"
 
   s.source       = { :git => "https://github.com/anas10/AASquaresLoading.git", :tag => s.version.to_s }
   s.source_files  = "Source/AASquaresLoading.swift"
