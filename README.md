@@ -23,7 +23,10 @@ More examples in the demo project.
 
 ### CocoaPods
 
-*Comming soon*
+```
+pod 'AASquaresLoading'
+
+```
 
 ### Manual
 
