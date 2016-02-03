@@ -10,7 +10,7 @@ import UIKit
 
 public class AASquaresLoading : UIView {
   public var view : UIView = UIView()
-  public var size : Float = 40
+  private(set) public var size : Float = 0
   public var color : UIColor = UIColor.blackColor() {
     didSet {
       for layer in squares {
@@ -35,66 +35,70 @@ public class AASquaresLoading : UIView {
   private var squares : [CALayer] = [CALayer]()
 
   public init(target: UIView) {
-    let frame = target.frame
-    super.init(frame: frame)
+    super.init(frame: target.frame)
 
-    setup(target, size: self.size)
+    parentView = target
+    setup(self.size)
   }
 
   public init(target: UIView, size: Float) {
-    let frame = target.frame
-    super.init(frame: frame)
+    super.init(frame: target.frame)
 
-    setup(target, size: size)
-  }
-
-  private func setup(target: UIView, size: Float) {
-    self.size = size
-    self.view.frame = CGRectMake(frame.width / 2 - CGFloat(size) / 2,
-      frame.height / 2 - CGFloat(size) / 2, CGFloat(size), CGFloat(size))
     parentView = target
-    self.initialize()
+    setup(size)
   }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-
-    if size == 0 {
-      let width = frame.size.width
-      let height = frame.size.height
-      size = width > height ? Float(height) : Float(width)
-    }
-    self.view.frame = frame
-    self.initialize()
+    
+    setup(0)
   }
 
   required public init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 
-    if size == 0 {
-      let width = CGRectGetWidth(self.frame)
-      let height = CGRectGetHeight(self.frame)
-      size = width > height ? Float(height) : Float(width)
-    }
-    self.view.frame = frame
+    setup(0)
+  }
+  
+  public override func layoutSubviews() {
+    updateFrame()
+    super.layoutSubviews()
+  }
+  
+  private func setup(size: Float) {
+    self.size = size
+    updateFrame()
     self.initialize()
   }
-
-  public func start() {
+  
+  private func updateFrame() {
+    if parentView != nil {
+      self.frame = CGRectMake(0, 0, CGRectGetWidth(parentView!.frame), CGRectGetHeight(parentView!.frame))
+    }
+    if size == 0 {
+      let width = frame.size.width
+      let height = frame.size.height
+      size = width > height ? Float(height/2) : Float(width/2)
+    }
+    self.view.frame = CGRectMake(frame.width / 2 - CGFloat(size) / 2,
+      frame.height / 2 - CGFloat(size) / 2, CGFloat(size), CGFloat(size))
+  }
+  
+  public func start(delay : NSTimeInterval = 0.0) {
     if (parentView != nil) {
       self.layer.opacity = 0
       self.parentView!.addSubview(self)
-      UIView.animateWithDuration(0.6, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut,
+      UIView.animateWithDuration(0.6, delay: delay, options: UIViewAnimationOptions.CurveEaseInOut,
         animations: { () -> Void in
           self.layer.opacity = 1
         }, completion: nil)
     }
   }
 
-  public func stop() {
+  public func stop(delay : NSTimeInterval = 0.0) {
     if (parentView != nil) {
       self.layer.opacity = 1
-      UIView.animateWithDuration(0.6, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut,
+      UIView.animateWithDuration(0.6, delay: delay, options: UIViewAnimationOptions.CurveEaseInOut,
         animations: { () -> Void in
           self.layer.opacity = 0
         }, completion: { (success: Bool) -> Void in
@@ -111,7 +115,7 @@ public class AASquaresLoading : UIView {
     squares = [CALayer]()
 
     self.addSubview(view)
-    self.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.4)
+    self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
     for var i : Int = 0; i < 3; i++ {
       for var j : Int = 0; j < 3; j++ {
         var offsetX, offsetY : Float
