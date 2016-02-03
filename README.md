@@ -23,15 +23,43 @@ More examples in the demo project.
 
 ### CocoaPods
 
-```
-pod 'AASquaresLoading'
-
-```
+`pod 'AASquaresLoading'`
 
 ### Manual
 
 1. Add `AASquaresLoading.swift`to your project
 2. That's all you can use it!
+
+## Usage
+
+### Basic
+
+1. As a UIView method
+
+	```swift
+	self.view.squareLoading.start(0.0)
+	...
+	self.view.squareLoading.stop(0.0)
+	```
+2. As a standalone class
+
+	```swift
+	let loadingSquare = AASquaresLoading(target: self.view, size: 40)
+    loadingSquare.start()
+    ....
+    loadingSquare.stop()
+	```
+3. As a custom class interface builder by setting AASquareLoading as a custom class for a UIView
+
+### Customization
+
+```swift
+	// Change background color
+	self.view.squareLoading.backgroundColor = UIColor.redColor()
+	// Change loading color
+	self.view.squareLoading.color = UIColor.whiteColor()
+
+```
 
 ## License
 
