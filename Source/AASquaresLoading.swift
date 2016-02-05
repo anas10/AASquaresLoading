@@ -125,7 +125,7 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
     if size == 0 {
       let width = frame.size.width
       let height = frame.size.height
-      size = width > height ? Float(height/2) : Float(width/2)
+      size = width > height ? Float(height/8) : Float(width/8)
     }
     self.view.frame = CGRectMake(frame.width / 2 - CGFloat(size) / 2,
       frame.height / 2 - CGFloat(size) / 2, CGFloat(size), CGFloat(size))
