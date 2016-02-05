@@ -18,6 +18,7 @@ class ViewController: UIViewController {
   @IBOutlet weak var bottomLeft: UIView!
   
   var topRightSquare : AASquaresLoading!
+
   var bottomRightSquare : AASquaresLoading!
   var bottomCenterSquare : AASquaresLoading!
   var bottomLeftSquare : AASquaresLoading!
@@ -39,6 +40,7 @@ class ViewController: UIViewController {
     self.bottomCenter.squareLoading.start(0.0)
     self.bottomCenter.squareLoading.backgroundColor = UIColor.redColor()
     self.bottomCenter.squareLoading.color = UIColor.whiteColor()
+    self.bottomCenter.squareLoading.setSquareSize(120)
     self.bottomCenter.squareLoading.stop(8.0)
     
     bottomLeftSquare = AASquaresLoading(target: self.bottomLeft)

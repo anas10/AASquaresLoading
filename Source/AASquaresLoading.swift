@@ -15,8 +15,10 @@ import UIKit
 public protocol AASquareLoadingInterface: class {
   var color : UIColor { get set }
   var backgroundColor : UIColor? { get set }
+  
   func start(delay : NSTimeInterval)
   func stop(delay : NSTimeInterval)
+  func setSquareSize(size: Float)
 }
 
 private var AASLAssociationKey: UInt8 = 0
@@ -56,7 +58,7 @@ public extension UIView {
 public class AASquaresLoading : UIView, AASquareLoadingInterface {
   public var view : UIView = UIView()
   private(set) public var size : Float = 0
-  public var color : UIColor = UIColor.blackColor() {
+  public var color : UIColor = UIColor(red: 0, green: 0.48, blue: 1, alpha: 1) {
     didSet {
       for layer in squares {
         layer.backgroundColor = color.CGColor
@@ -162,6 +164,11 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
     }
   }
 
+  public func setSquareSize(size: Float) {
+    self.view.layer.sublayers = nil
+    setup(size)
+  }
+  
   private func initialize() {
     let gap : Float = 0.04
     gapSize = size * gap
@@ -170,7 +177,9 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
     squares = [CALayer]()
 
     self.addSubview(view)
-    self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
+    if (self.backgroundColor == nil) {
+      self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
+    }
     for var i : Int = 0; i < 3; i++ {
       for var j : Int = 0; j < 3; j++ {
         var offsetX, offsetY : Float
@@ -193,8 +202,6 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
     squareEndX = squareOffsetX[8]
     squareEndY = squareOffsetY[8] + 2 * squareSize! + 2 * gapSize!
     squareEndOpacity = 0.0
-
-    color = self.tintColor
 
     for var i = -1; i < 9; i++ {
       self.addSquareAnimation(i)

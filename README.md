@@ -5,16 +5,16 @@ Simple loading animation using squares
 
 ## Example
 ```swift
-    let loadingSquare = AASquaresLoading(target: self.view, size: 40)
-    // Customize background
-    loadingSquare.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
-    // Customize color
-    loadingSquare.color = UIColor.whiteColor()
-    // Start loading
-    loadingSquare.start()
-    ....
-    // Stop loading
-    loadingSquare.stop()
+let loadingSquare = AASquaresLoading(target: self.view, size: 40)
+// Customize background
+loadingSquare.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
+// Customize color
+loadingSquare.color = UIColor.whiteColor()
+// Start loading
+loadingSquare.start()
+....
+// Stop loading
+loadingSquare.stop()
 ```
 
 More examples in the demo project.
@@ -23,11 +23,12 @@ More examples in the demo project.
 
 ### CocoaPods
 
-`pod 'AASquaresLoading'`
+1. Add to your podfile : `pod 'AASquaresLoading'`
+2. In your terminal : `pod install`
 
 ### Manual
 
-1. Add `AASquaresLoading.swift`to your project
+1. Add `AASquaresLoading.swift` to your project
 2. That's all you can use it!
 
 ## Usage
@@ -53,12 +54,17 @@ More examples in the demo project.
 
 ### Customization
 
+##### Change background color
 ```swift
-	// Change background color
-	self.view.squareLoading.backgroundColor = UIColor.redColor()
-	// Change loading color
-	self.view.squareLoading.color = UIColor.whiteColor()
-
+self.view.squareLoading.backgroundColor = UIColor.redColor()
+```
+##### Change squares color
+```swift
+self.view.squareLoading.color = UIColor.whiteColor()
+```
+##### Change the square size
+```swift
+self.view.squareLoading.setSquareSize(120)
 ```
 
 ## License

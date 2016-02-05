@@ -32,7 +32,8 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jFI-G7-9uA" userLabel="Top left" customClass="AASquaresLoading" customModule="AASquaresLoading">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
-                                <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gOY-DI-0UP" userLabel="Top right">
                                 <rect key="frame" x="300" y="0.0" width="300" height="300"/>
