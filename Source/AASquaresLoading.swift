@@ -16,9 +16,9 @@ public protocol AASquareLoadingInterface: class {
   var color : UIColor { get set }
   var backgroundColor : UIColor? { get set }
   
-  func start(delay : NSTimeInterval)
-  func stop(delay : NSTimeInterval)
-  func setSquareSize(size: Float)
+  func start(_ delay : TimeInterval)
+  func stop(_ delay : TimeInterval)
+  func setSquareSize(_ size: Float)
 }
 
 private var AASLAssociationKey: UInt8 = 0
@@ -55,31 +55,31 @@ public extension UIView {
 /**
  Main class AASquareLoading
 */
-public class AASquaresLoading : UIView, AASquareLoadingInterface {
-  public var view : UIView = UIView()
-  private(set) public var size : Float = 0
-  public var color : UIColor = UIColor(red: 0, green: 0.48, blue: 1, alpha: 1) {
+open class AASquaresLoading : UIView, AASquareLoadingInterface, CAAnimationDelegate {
+  open var view : UIView = UIView()
+  fileprivate(set) open var size : Float = 0
+  open var color : UIColor = UIColor(red: 0, green: 0.48, blue: 1, alpha: 1) {
     didSet {
       for layer in squares {
-        layer.backgroundColor = color.CGColor
+        layer.backgroundColor = color.cgColor
       }
     }
   }
-  public var parentView : UIView?
+  open var parentView : UIView?
 
-  private var squareSize: Float?
-  private var gapSize: Float?
-  private var moveTime: Float?
-  private var squareStartX: Float?
-  private var squareStartY: Float?
-  private var squareStartOpacity: Float?
-  private var squareEndX: Float?
-  private var squareEndY: Float?
-  private var squareEndOpacity: Float?
-  private var squareOffsetX: [Float] = [Float](count: 9, repeatedValue: 0)
-  private var squareOffsetY: [Float] = [Float](count: 9, repeatedValue: 0)
-  private var squareOpacity: [Float] = [Float](count: 9, repeatedValue: 0)
-  private var squares : [CALayer] = [CALayer]()
+  fileprivate var squareSize: Float?
+  fileprivate var gapSize: Float?
+  fileprivate var moveTime: Float?
+  fileprivate var squareStartX: Float?
+  fileprivate var squareStartY: Float?
+  fileprivate var squareStartOpacity: Float?
+  fileprivate var squareEndX: Float?
+  fileprivate var squareEndY: Float?
+  fileprivate var squareEndOpacity: Float?
+  fileprivate var squareOffsetX: [Float] = [Float](repeating: 0, count: 9)
+  fileprivate var squareOffsetY: [Float] = [Float](repeating: 0, count: 9)
+  fileprivate var squareOpacity: [Float] = [Float](repeating: 0, count: 9)
+  fileprivate var squares : [CALayer] = [CALayer]()
 
   public init(target: UIView) {
     super.init(frame: target.frame)
@@ -107,28 +107,28 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
     setup(0)
   }
   
-  public override func layoutSubviews() {
+  open override func layoutSubviews() {
     updateFrame()
     super.layoutSubviews()
   }
   
-  private func setup(size: Float) {
+  fileprivate func setup(_ size: Float) {
     self.size = size
     updateFrame()
     self.initialize()
   }
   
-  private func updateFrame() {
+  fileprivate func updateFrame() {
     if parentView != nil {
-      self.frame = CGRectMake(0, 0, CGRectGetWidth(parentView!.frame), CGRectGetHeight(parentView!.frame))
+      self.frame = CGRect(x: 0, y: 0, width: parentView!.frame.width, height: parentView!.frame.height)
     }
     if size == 0 {
       let width = frame.size.width
       let height = frame.size.height
       size = width > height ? Float(height/8) : Float(width/8)
     }
-    self.view.frame = CGRectMake(frame.width / 2 - CGFloat(size) / 2,
-      frame.height / 2 - CGFloat(size) / 2, CGFloat(size), CGFloat(size))
+    self.view.frame = CGRect(x: frame.width / 2 - CGFloat(size) / 2,
+      y: frame.height / 2 - CGFloat(size) / 2, width: CGFloat(size), height: CGFloat(size))
   }
   
   /**
@@ -136,11 +136,11 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
    
    - Parameter delay : The delay before the loading start
    */
-  public func start(delay : NSTimeInterval = 0.0) {
+  open func start(_ delay : TimeInterval = 0.0) {
     if (parentView != nil) {
       self.layer.opacity = 0
       self.parentView!.addSubview(self)
-      UIView.animateWithDuration(0.6, delay: delay, options: UIViewAnimationOptions.CurveEaseInOut,
+      UIView.animate(withDuration: 0.6, delay: delay, options: UIViewAnimationOptions(),
         animations: { () -> Void in
           self.layer.opacity = 1
         }, completion: nil)
@@ -152,10 +152,10 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
    
    - Parameter delay : The delay before the loading start
    */
-  public func stop(delay : NSTimeInterval = 0.0) {
+  open func stop(_ delay : TimeInterval = 0.0) {
     if (parentView != nil) {
       self.layer.opacity = 1
-      UIView.animateWithDuration(0.6, delay: delay, options: UIViewAnimationOptions.CurveEaseInOut,
+      UIView.animate(withDuration: 0.6, delay: delay, options: UIViewAnimationOptions(),
         animations: { () -> Void in
           self.layer.opacity = 0
         }, completion: { (success: Bool) -> Void in
@@ -164,12 +164,12 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
     }
   }
 
-  public func setSquareSize(size: Float) {
+  open func setSquareSize(_ size: Float) {
     self.view.layer.sublayers = nil
     setup(size)
   }
   
-  private func initialize() {
+  fileprivate func initialize() {
     let gap : Float = 0.04
     gapSize = size * gap
     squareSize = size * (1.0 - 2 * gap) / 3
@@ -178,10 +178,10 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
 
     self.addSubview(view)
     if (self.backgroundColor == nil) {
-      self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
+      self.backgroundColor = UIColor.white.withAlphaComponent(0.9)
     }
-    for var i : Int = 0; i < 3; i++ {
-      for var j : Int = 0; j < 3; j++ {
+    for i : Int in 0 ..< 3 {
+      for j : Int in 0 ..< 3 {
         var offsetX, offsetY : Float
         let idx : Int = 3 * i + j
         if i == 1 {
@@ -203,23 +203,23 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
     squareEndY = squareOffsetY[8] + 2 * squareSize! + 2 * gapSize!
     squareEndOpacity = 0.0
 
-    for var i = -1; i < 9; i++ {
+    for i in -1 ..< 9 {
       self.addSquareAnimation(i)
     }
   }
 
-  private func addSquareAnimation(position: Int) {
+  fileprivate func addSquareAnimation(_ position: Int) {
     let square : CALayer = CALayer()
     if position == -1 {
-      square.frame = CGRectMake(CGFloat(squareStartX!), CGFloat(squareStartY!),
-        CGFloat(squareSize!), CGFloat(squareSize!))
+      square.frame = CGRect(x: CGFloat(squareStartX!), y: CGFloat(squareStartY!),
+        width: CGFloat(squareSize!), height: CGFloat(squareSize!))
       square.opacity = squareStartOpacity!
     } else {
-      square.frame = CGRectMake(CGFloat(squareOffsetX[position]),
-        CGFloat(squareOffsetY[position]), CGFloat(squareSize!), CGFloat(squareSize!))
+      square.frame = CGRect(x: CGFloat(squareOffsetX[position]),
+        y: CGFloat(squareOffsetY[position]), width: CGFloat(squareSize!), height: CGFloat(squareSize!))
       square.opacity = squareOpacity[position]
     }
-    square.backgroundColor = self.color.CGColor
+    square.backgroundColor = self.color.cgColor
     squares.append(square)
     self.view.layer.addSublayer(square)
 
@@ -236,9 +236,9 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
     }
 
     let sp : CGPoint = square.position
-    let path : CGMutablePathRef = CGPathCreateMutable()
+    let path : CGMutablePath = CGMutablePath()
 
-    CGPathMoveToPoint(path, nil, sp.x, sp.y)
+    path.move(to: CGPoint(x: sp.x, y: sp.y))
 
     var x, y, a : Float
     if position == -1 {
@@ -254,28 +254,28 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
       y = squareOffsetY[position + 1] - squareOffsetY[position]
       a = squareOpacity[position + 1]
     }
-    CGPathAddLineToPoint(path, nil, sp.x + CGFloat(x), sp.y + CGFloat(y))
+    path.addLine(to: CGPoint(x: sp.x + CGFloat(x), y: sp.y + CGFloat(y)))
     keyTimes.append(1.0 / 8.0)
     alphas.append(a)
 
-    CGPathAddLineToPoint(path, nil, sp.x + CGFloat(x), sp.y + CGFloat(y))
+    path.addLine(to: CGPoint(x: sp.x + CGFloat(x), y: sp.y + CGFloat(y)))
     keyTimes.append(1.0)
     alphas.append(a)
 
     let posAnim : CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "position")
-    posAnim.removedOnCompletion = false
+    posAnim.isRemovedOnCompletion = false
     posAnim.duration = Double(moveTime! * 8)
     posAnim.path = path
-    posAnim.keyTimes = keyTimes
+    posAnim.keyTimes = keyTimes as [NSNumber]?
 
     let alphaAnim : CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "opacity")
-    alphaAnim.removedOnCompletion = false
+    alphaAnim.isRemovedOnCompletion = false
     alphaAnim.duration = Double(moveTime! * 8)
     alphaAnim.values = alphas
-    alphaAnim.keyTimes = keyTimes
+    alphaAnim.keyTimes = keyTimes as [NSNumber]?
 
     let blankAnim : CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "opacity")
-    blankAnim.removedOnCompletion = false
+    blankAnim.isRemovedOnCompletion = false
     blankAnim.beginTime = Double(moveTime! * 8)
     blankAnim.duration = Double(moveTime!)
     blankAnim.values = [0.0, 0.0]
@@ -291,10 +291,10 @@ public class AASquaresLoading : UIView, AASquareLoadingInterface {
     group.animations = [posAnim, alphaAnim, blankAnim]
     group.beginTime = CACurrentMediaTime() + Double(beginTime)
     group.repeatCount = HUGE
-    group.removedOnCompletion = false
+    group.isRemovedOnCompletion = false
     group.delegate = self
     group.duration = Double(9 * moveTime!)
 
-    square.addAnimation(group, forKey: "square-\(position)")
+    square.add(group, forKey: "square-\(position)")
   }
 }

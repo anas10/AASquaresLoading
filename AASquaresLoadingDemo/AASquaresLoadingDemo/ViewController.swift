@@ -28,24 +28,24 @@ class ViewController: UIViewController {
     // Do any additional setup after loading the view, typically from a nib.
     
     topRightSquare = AASquaresLoading(target: self.topRight, size: 40)
-    topRightSquare.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
-    topRightSquare.color = UIColor.whiteColor()
+    topRightSquare.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+    topRightSquare.color = UIColor.white
     topRightSquare.start()
     
     bottomRightSquare = AASquaresLoading(target: self.bottomRight)
     bottomRightSquare.backgroundColor = nil
-    bottomRightSquare.color = UIColor.yellowColor()
+    bottomRightSquare.color = UIColor.yellow
     bottomRightSquare.start(4.0)
     
     self.bottomCenter.squareLoading.start(0.0)
-    self.bottomCenter.squareLoading.backgroundColor = UIColor.redColor()
-    self.bottomCenter.squareLoading.color = UIColor.whiteColor()
+    self.bottomCenter.squareLoading.backgroundColor = UIColor.red
+    self.bottomCenter.squareLoading.color = UIColor.white
     self.bottomCenter.squareLoading.setSquareSize(120)
     self.bottomCenter.squareLoading.stop(8.0)
     
     bottomLeftSquare = AASquaresLoading(target: self.bottomLeft)
-    bottomLeftSquare.color = UIColor.blackColor()
-    bottomLeftSquare.backgroundColor = UIColor.clearColor()
+    bottomLeftSquare.color = UIColor.black
+    bottomLeftSquare.backgroundColor = UIColor.clear
     bottomLeftSquare.start()
   }
   
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  override func prefersStatusBarHidden() -> Bool {
+  override var prefersStatusBarHidden : Bool {
     return true
   }
   
